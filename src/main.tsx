@@ -6,5 +6,5 @@ import HabitTracker from "./components/HabitTracker.tsx";
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <HabitTracker />
-  </StrictMode>
+  </StrictMode>,
 );

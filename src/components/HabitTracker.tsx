@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Habit } from "../types";
 import ContributionGraph from "./ContributeGraph";
+import CarbonCopy from "./CarbonCopy";
 
 const HabitTracker: React.FC = () => {
   const [habits, setHabits] = useState<Habit[]>(() => {
@@ -41,19 +42,21 @@ const HabitTracker: React.FC = () => {
   };
 
   return (
-    <div className="p-4 max-w-md mx-auto">
-      <h1 className="text-2xl font-bold mb-4">Habit Tracker</h1>
+    <div className="mx-auto max-w-md p-4">
+      <h1 className="mb-4 text-2xl font-bold">Habit Tracker</h1>
       <div className="mb-4">
         <input
           type="text"
           value={newHabit}
           onChange={(e) => setNewHabit(e.target.value)}
           placeholder="Enter a habit"
-          className="border rounded p-2 w-full"
+          className="w-full rounded border p-2"
         />
+        {/*  TODO: TBD */}
+        <CarbonCopy />
         <button
           onClick={addHabit}
-          className="mt-2 bg-blue-500 text-white p-2 rounded w-full"
+          className="mt-2 w-full rounded bg-blue-500 p-2 text-white"
         >
           Add Habit
         </button>
@@ -61,8 +64,14 @@ const HabitTracker: React.FC = () => {
       <ul>
         {habits.map((habit, index) => (
           <li key={index} className="mb-6">
+            <button
+              onClick={() => updateStreak(index)}
+              className="mt-2 w-10 rounded-full bg-pink-500 p-2 text-white"
+            >
+              +
+            </button>
             <div
-              className="flex justify-between items-center border-b py-2 cursor-pointer"
+              className="flex cursor-pointer items-center justify-between border-b py-2"
               onClick={() => updateStreak(index)}
             >
               <span>{habit.name}</span>

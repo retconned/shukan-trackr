@@ -15,7 +15,7 @@ const ContributionGraph: React.FC<Props> = ({ habit }) => {
   };
 
   return (
-    <div className="grid grid-cols-7 gap-1 mt-4">
+    <div className="mt-4 grid grid-cols-7 gap-1">
       {Array.from({ length: daysInYear }).map((_, i) => {
         const date = new Date(today);
         date.setDate(today.getDate() - i);
@@ -24,7 +24,7 @@ const ContributionGraph: React.FC<Props> = ({ habit }) => {
         return (
           <div
             key={dateString}
-            className={`w-4 h-4 ${getDayClass(dateString)}`}
+            className={`h-4 w-4 ${getDayClass(dateString)}`}
           />
         );
       })}
