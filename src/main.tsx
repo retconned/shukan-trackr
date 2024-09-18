@@ -1,10 +1,18 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
-import "./index.css";
-import HabitTracker from "./components/HabitTracker.tsx";
+import "./globals.css";
+// import HabitTracker from "./components/HabitTracker.tsx";
+import { ThemeProvider } from "@/components/theme-provider.tsx";
+import App from "@/App.tsx";
+
+import { setupOfflineHandler } from "./offline";
+
+setupOfflineHandler();
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <HabitTracker />
+    <ThemeProvider defaultTheme={"dark"} storageKey="vite-ui-theme">
+      <App />
+    </ThemeProvider>
   </StrictMode>,
 );

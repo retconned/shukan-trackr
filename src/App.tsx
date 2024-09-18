@@ -1,5 +1,11 @@
+import HabitTracker from "./components/HabitTracker.tsx";
+
 function App() {
-  return <></>;
+  return (
+    <>
+      <HabitTracker />
+    </>
+  );
 }
 
 export default App;

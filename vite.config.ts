@@ -1,6 +1,7 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import { VitePWA } from "vite-plugin-pwa";
+import path from "path";
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -8,8 +9,13 @@ export default defineConfig({
     react(),
     VitePWA({
       registerType: "autoUpdate",
+      workbox: {
+        globPatterns: [
+          "**/*.{js,ts,jsx,tsx,css,html,ico,png,svg,json,txt,woff2}",
+        ],
+      },
       manifest: {
-        name: "Habit Tracker",
+        name: "Habit Tracker!",
         short_name: "HabitTracker",
         description: "Track your habits and maintain streaks!",
         theme_color: "#ffffff",
@@ -25,29 +31,13 @@ export default defineConfig({
             type: "image/png",
           },
         ],
-      },
-      workbox: {
-        runtimeCaching: [
-          {
-            urlPattern: /.*\.(?:png|jpg|jpeg|svg|gif)/,
-            handler: "CacheFirst",
-            options: {
-              cacheName: "images",
-              expiration: {
-                maxEntries: 10,
-                maxAgeSeconds: 60 * 60 * 24 * 30, // 30 Days
-              },
-            },
-          },
-          {
-            urlPattern: /.*\.(?:js|css)/,
-            handler: "StaleWhileRevalidate",
-            options: {
-              cacheName: "static-resources",
-            },
-          },
-        ],
+        display: "standalone",
       },
     }),
   ],
+  resolve: {
+    alias: {
+      "@": path.resolve(__dirname, "./src"),
+    },
+  },
 });
