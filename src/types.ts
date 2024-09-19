@@ -7,4 +7,4 @@ export interface Habit {
   startDate: string; // The date when the habit was created
 }
 
-export type HabitTrackerViewMode = "list" | "weekly";
+export type HabitTrackerViewMode = "list" | "weekly" | "minimal";

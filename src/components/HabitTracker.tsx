@@ -5,9 +5,10 @@ import HabitCard from "@/components/HabitCard";
 
 import PWAInstallDrawer from "@/components/drawers/PWAInstaller";
 import BottomBar from "@/components/BottomNav";
-import { Button } from "@/components/ui/button";
 import WeeklyHabitView from "@/components/WeeklyCard";
-import { Grip, GripHorizontal } from "lucide-react";
+import { Ellipsis, Grip, GripHorizontal } from "lucide-react";
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import MinimalCard from "@/components/MinimalCard";
 
 const HabitTracker: React.FC = () => {
   const [habits, setHabits] = useState<Habit[]>(() => {
@@ -15,7 +16,10 @@ const HabitTracker: React.FC = () => {
     return storedHabits ? JSON.parse(storedHabits) : [];
   });
 
-  const [viewMode, setViewMode] = useState<HabitTrackerViewMode>("list");
+  const [viewMode, setViewMode] = useState<string>(() => {
+    const storedViewMode = localStorage.getItem("viewMode");
+    return storedViewMode ? storedViewMode : "list";
+  });
 
   const [startDay, setStartDay] = useState<string>(() => {
     const storedStartDay = localStorage.getItem("startDay");
@@ -81,19 +85,30 @@ const HabitTracker: React.FC = () => {
     }
   };
 
-  const toggleViewMode = () => {
-    setViewMode((prevMode) => (prevMode === "list" ? "weekly" : "list"));
-  };
-
   return (
     <div className="mx-auto max-w-md p-4">
       <Header />
-
-      <div className="flex flex-row items-center justify-start px-2">
-        <Button onClick={toggleViewMode} className="mb-4">
-          {viewMode === "list" ? <GripHorizontal /> : <Grip />}
-        </Button>
-      </div>
+      <Tabs
+        defaultValue={viewMode}
+        value={viewMode}
+        onValueChange={(value) => setViewMode(value as HabitTrackerViewMode)}
+        className="mb-4 w-full"
+      >
+        <TabsList className="grid w-full grid-cols-3">
+          <TabsTrigger value="list">
+            <Grip className="mr-2 h-4 w-4" />
+            Default
+          </TabsTrigger>
+          <TabsTrigger value="weekly">
+            <GripHorizontal className="mr-2 h-4 w-4" />
+            Weekly
+          </TabsTrigger>
+          <TabsTrigger value="minimal">
+            <Ellipsis className="mr-2 h-4 w-4" />
+            Minimal
+          </TabsTrigger>
+        </TabsList>
+      </Tabs>
 
       <BottomBar
         addHabit={addHabit}
@@ -119,10 +134,25 @@ const Header: React.FC = () => (
 
 const HabitList: React.FC<{
   habits: Habit[];
-  viewMode: HabitTrackerViewMode;
+  viewMode: string;
   updateStreak: (index: number) => void;
   startDay: string;
 }> = ({ habits, updateStreak, viewMode, startDay }) => {
+  if (viewMode === "minimal") {
+    return (
+      <div className="flex flex-col space-y-2">
+        {habits.map((habit, index) => (
+          <MinimalCard
+            key={index}
+            habit={habit}
+            startDay={startDay}
+            updateStreak={() => updateStreak(index)}
+          />
+        ))}
+      </div>
+    );
+  }
+
   return (
     <ul className="flex flex-col gap-4">
       {viewMode === "list" ? (
