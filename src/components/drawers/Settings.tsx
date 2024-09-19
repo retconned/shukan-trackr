@@ -13,8 +13,23 @@ import { Button } from "@/components/ui/button";
 import { Settings } from "lucide-react";
 import { useTheme } from "@/components/theme-provider";
 import { Switch } from "@/components/ui/switch";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
-const SettingsDrawer: React.FC = () => {
+interface SettingsDrawerProps {
+  startDay: string;
+  setStartDay: (day: string) => void;
+}
+
+const SettingsDrawer: React.FC<SettingsDrawerProps> = ({
+  startDay,
+  setStartDay,
+}) => {
   const { theme, setTheme } = useTheme();
 
   return (
@@ -41,6 +56,18 @@ const SettingsDrawer: React.FC = () => {
                   setTheme(checked ? "dark" : "light")
                 }
               />
+            </div>
+            <div className="flex w-full flex-row items-center justify-between">
+              <span>Week Start Day</span>
+              <Select value={startDay} onValueChange={setStartDay}>
+                <SelectTrigger className="w-[180px]">
+                  <SelectValue placeholder="Select start day" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="sunday">Sunday</SelectItem>
+                  <SelectItem value="monday">Monday</SelectItem>
+                </SelectContent>
+              </Select>
             </div>
             {/* <div className="flex w-full flex-row items-center justify-between">
               <span>Notifications</span>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { Habit } from "@/types";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -7,20 +7,48 @@ import { Badge } from "@/components/ui/badge";
 interface WeeklyHabitViewProps {
   habit: Habit;
   updateStreak: () => void;
+  startDay: string;
 }
 
 const WeeklyHabitView: React.FC<WeeklyHabitViewProps> = ({
   habit,
   updateStreak,
+  startDay,
 }) => {
-  const today = new Date();
   const dayNames = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
-  const weekDays = Array.from({ length: 7 }, (_, i) => {
-    const day = new Date(today);
-    day.setDate(today.getDate() - today.getDay() + i);
-    return day;
-  });
+  const getWeekDays = useMemo(() => {
+    const today = new Date();
+    const startDayIndex = dayNames.findIndex(
+      (day) => day.toLowerCase() === startDay.slice(0, 3).toLowerCase(),
+    );
+
+    const result = [];
+    for (let i = 0; i < 7; i++) {
+      const date = new Date(today);
+      const diff = date.getDay() - startDayIndex - i;
+      date.setDate(date.getDate() - diff);
+      result.push(date);
+    }
+    return result;
+  }, [startDay]);
+
+  const formatDate = (date: Date): string => {
+    return date.toISOString().split("T")[0];
+  };
+
+  const isToday = (date: Date): boolean => {
+    const today = new Date();
+    return (
+      date.getDate() === today.getDate() &&
+      date.getMonth() === today.getMonth() &&
+      date.getFullYear() === today.getFullYear()
+    );
+  };
+
+  const isCompleted = (date: Date): boolean => {
+    return habit.days[formatDate(date)] || false;
+  };
 
   return (
     <Card className="bg-primary/90">
@@ -42,22 +70,14 @@ const WeeklyHabitView: React.FC<WeeklyHabitViewProps> = ({
       </CardHeader>
       <CardContent>
         <div className="flex justify-between">
-          {weekDays.map((day, index) => {
-            const dayString = day.toISOString().split("T")[0];
-            const isCompleted = habit.days[dayString];
-            const isToday = day.toDateString() === today.toDateString();
-
-            return (
-              <div key={index} className="flex flex-col items-center space-y-2">
-                <div
-                  className={`mt-2 h-6 w-6 rounded-full ${
-                    isCompleted ? "bg-yellow-300" : "bg-zinc-400"
-                  } ${isToday ? "ring-2 ring-white" : ""}`}
-                />
-                <span className="text-sm">{dayNames[day.getDay()]}</span>
-              </div>
-            );
-          })}
+          {getWeekDays.map((day, index) => (
+            <div key={index} className="flex flex-col items-center space-y-2">
+              <div
+                className={`mt-2 h-6 w-6 rounded-full ${isCompleted(day) ? "bg-yellow-300" : "bg-zinc-400"} ${isToday(day) ? "ring-2 ring-white" : ""} `}
+              />
+              <span className="text-sm">{dayNames[day.getDay()]}</span>
+            </div>
+          ))}
         </div>
       </CardContent>
     </Card>

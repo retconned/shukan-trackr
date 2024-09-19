@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Habit } from "../types";
+import { Habit, HabitTrackerViewMode } from "../types";
 import { getRandomEmoji } from "@/lib/utils";
 import HabitCard from "@/components/HabitCard";
 
@@ -15,7 +15,12 @@ const HabitTracker: React.FC = () => {
     return storedHabits ? JSON.parse(storedHabits) : [];
   });
 
-  const [viewMode, setViewMode] = useState<"list" | "weekly">("list");
+  const [viewMode, setViewMode] = useState<HabitTrackerViewMode>("list");
+
+  const [startDay, setStartDay] = useState<string>(() => {
+    const storedStartDay = localStorage.getItem("startDay");
+    return storedStartDay || "sunday";
+  });
 
   useEffect(() => {
     const storedHabits = localStorage.getItem("habits");
@@ -25,7 +30,7 @@ const HabitTracker: React.FC = () => {
 
     const storedViewMode = localStorage.getItem("viewMode");
     if (storedViewMode) {
-      setViewMode(storedViewMode as "list" | "weekly");
+      setViewMode(storedViewMode as HabitTrackerViewMode);
     }
   }, []);
 
@@ -36,6 +41,10 @@ const HabitTracker: React.FC = () => {
   useEffect(() => {
     localStorage.setItem("viewMode", viewMode);
   }, [viewMode]);
+
+  useEffect(() => {
+    localStorage.setItem("startDay", startDay);
+  }, [startDay]);
 
   const addHabit = (name: string, emoji: string, goalDays?: number) => {
     const startDate = new Date().toISOString().split("T")[0];
@@ -86,11 +95,16 @@ const HabitTracker: React.FC = () => {
         </Button>
       </div>
 
-      <BottomBar addHabit={addHabit} />
+      <BottomBar
+        addHabit={addHabit}
+        startDay={startDay}
+        setStartDay={setStartDay}
+      />
       <HabitList
         viewMode={viewMode}
         habits={habits}
         updateStreak={updateStreak}
+        startDay={startDay}
       />
     </div>
   );
@@ -105,28 +119,32 @@ const Header: React.FC = () => (
 
 const HabitList: React.FC<{
   habits: Habit[];
-  viewMode: "list" | "weekly";
+  viewMode: HabitTrackerViewMode;
   updateStreak: (index: number) => void;
-}> = ({ habits, updateStreak, viewMode }) => (
-  <ul className="flex flex-col gap-4">
-    {viewMode === "list" ? (
-      habits.map((habit, index) => (
-        <li key={index} className="flex flex-col gap-4 p-2">
-          <HabitCard habit={habit} updateStreak={() => updateStreak(index)} />
-        </li>
-      ))
-    ) : (
-      <div className="flex flex-col gap-4 p-2">
-        {habits.map((habit, index) => (
-          <WeeklyHabitView
-            key={index}
-            habit={habit}
-            updateStreak={() => updateStreak(index)}
-          />
-        ))}
-      </div>
-    )}
-  </ul>
-);
+  startDay: string;
+}> = ({ habits, updateStreak, viewMode, startDay }) => {
+  return (
+    <ul className="flex flex-col gap-4">
+      {viewMode === "list" ? (
+        habits.map((habit, index) => (
+          <li key={index} className="flex flex-col gap-4 p-2">
+            <HabitCard habit={habit} updateStreak={() => updateStreak(index)} />
+          </li>
+        ))
+      ) : (
+        <div className="flex flex-col gap-4 p-2">
+          {habits.map((habit, index) => (
+            <WeeklyHabitView
+              key={index}
+              habit={habit}
+              updateStreak={() => updateStreak(index)}
+              startDay={startDay}
+            />
+          ))}
+        </div>
+      )}
+    </ul>
+  );
+};
 
 export default HabitTracker;

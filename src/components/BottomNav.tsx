@@ -9,13 +9,14 @@ import {
   DrawerClose,
 } from "@/components/ui/drawer";
 import { Button } from "@/components/ui/button";
-import { Settings, BarChart, Plus } from "lucide-react";
+import { BarChart, Plus } from "lucide-react";
 import AddHabitDrawer from "@/components/drawers/AddHabit";
-import ThemeDrawer from "@/components/drawers/Theme";
 import SettingsDrawer from "@/components/drawers/Settings";
 
 interface BottomBarProps {
   addHabit: (name: string, emoji: string, goalDays?: number) => void;
+  startDay: string;
+  setStartDay: (day: string) => void;
 }
 
 const DrawerTemplate: React.FC<{
@@ -45,14 +46,18 @@ const DrawerTemplate: React.FC<{
   );
 };
 
-const BottomBar: React.FC<BottomBarProps> = ({ addHabit }) => {
+const BottomBar: React.FC<BottomBarProps> = ({
+  addHabit,
+  startDay,
+  setStartDay,
+}) => {
   const [openDrawer, setOpenDrawer] = useState<
     "settings" | "statistics" | null
   >(null);
 
   return (
     <div className="fixed bottom-0 left-0 right-0 flex items-center justify-around border-t bg-background p-4">
-      <SettingsDrawer />
+      <SettingsDrawer startDay={startDay} setStartDay={setStartDay} />
       <div className="relative flex flex-1 justify-center">
         <AddHabitDrawer addHabit={addHabit}>
           <Button className="absolute -top-7 mb-4 h-14 w-14 rounded-xl shadow-lg">
