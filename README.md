@@ -1,50 +1,75 @@
-# React + TypeScript + Vite
+# 🗓️ Shūkan Trackr - 習慣トラッカー
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**Shūkan Trackr** is a free, open-source habit tracking app with local-first, offline support. It's a Progressive Web App (PWA) that works seamlessly across all platforms with one-click installation on phones. Built with React and TypeScript using Vite, this app is designed to help you track your habits!
 
-Currently, two official plugins are available:
+## 🌟 Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **Free & Open Source** - No hidden costs! Built for the community.
+- **Local-first with Offline Support** - No internet? No problem. Your data is saved locally.
+- **Progressive Web App (PWA)** - Installable on any platform (mobile or desktop) in just one click!
+- **Vite + React + TypeScript** - Fast, modern, and flexible tech stack for developers.
 
-## Expanding the ESLint configuration
+## 📱 One-Click Installation (Mobile)
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+1. Open the app in your mobile browser.
+2. Tap the "Install" button or "Add to Home Screen."
+3. Start tracking your habits from your home screen just like a native app!
 
-- Configure the top-level `parserOptions` property like this:
+## 🚀 Get Started Locally
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+To install and run **Shūkan Trackr** on your machine for development or testing:
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+### Prerequisites
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+- [Node.js](https://nodejs.org/) (v18+)
+- [Git](https://git-scm.com/)
+- [pnpm](https://pnpm.io/) (v9.1.4)
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+### Installation
+
+1. **Clone the repo**:
+
+   ```bash
+   git clone https://github.com/yourusername/shukan-trackr.git
+   cd shukan-trackr
+   ```
+
+2. **Install dependencies**:
+
+   ```bash
+   pnpm install
+   ```
+
+3. **Start the development server**:
+
+   ```bash
+   pnpm run dev
+   ```
+
+4. **Build for production**:
+   ```bash
+   pnpm run build
+   ```
+
+### Additional Commands
+
+- **Preview the production build**:
+  ```bash
+  pnpm run preview
+  ```
+- **Run tests**:
+  ```bash
+  pnpm test
+  ```
+
+## 🏗️ Contributing
+
+Contributions are welcome! If you have ideas for new features, bug fixes, or improvements, feel free to open a pull request or submit an issue.
+
+## 📄 License
+
+This project is licensed under the [MIT License](LICENSE).
+
+---
+
+Enjoy using **Shūkan Trackr** and happy habit tracking! 💪😊
