@@ -17,6 +17,15 @@ module.exports = {
       },
     },
     extend: {
+      typography: {
+        DEFAULT: {
+          css: {
+            html: {
+              WebkitTextSizeAdjust: "100%",
+            },
+          },
+        },
+      },
       colors: {
         "yellow-290": "#ffeba8",
         border: "hsl(var(--border))",
@@ -80,5 +89,5 @@ module.exports = {
       },
     },
   },
-  plugins: [require("tailwindcss-animate")],
+  plugins: [require("tailwindcss-animate"), require("@tailwindcss/typography")],
 };
