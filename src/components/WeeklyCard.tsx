@@ -1,8 +1,8 @@
 import React, { useMemo } from "react";
 import { Habit } from "@/types";
-import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { isTitleEmpty } from "@/lib/utils";
 
 interface WeeklyHabitViewProps {
   habit: Habit;
@@ -51,10 +51,11 @@ const WeeklyHabitView: React.FC<WeeklyHabitViewProps> = ({
   };
 
   return (
-    <Card className="bg-primary/90">
-      <CardHeader className="flex flex-row items-center justify-between">
-        <div className="flex items-center space-x-2">
-          <h3 className="text-lg font-semibold">{habit.name}</h3>
+    <div className="rounded-xl bg-primary/90 px-4 pt-2">
+      <div className="flex flex-row items-center justify-between py-2">
+        <div className="flex items-center space-x-2 px-2">
+          <h3 className="text-base">{habit.emoji}</h3>
+          <h3 className="text-base">{isTitleEmpty(habit.name)}</h3>
           <Badge variant="default" className="text-xs">
             🔥 {habit.streak} days
           </Badge>
@@ -67,8 +68,8 @@ const WeeklyHabitView: React.FC<WeeklyHabitViewProps> = ({
         >
           +
         </Button>
-      </CardHeader>
-      <CardContent>
+      </div>
+      <div className="px-2 pb-4 pt-0">
         <div className="flex justify-between">
           {getWeekDays.map((day, index) => (
             <div key={index} className="flex flex-col items-center space-y-2">
@@ -79,8 +80,8 @@ const WeeklyHabitView: React.FC<WeeklyHabitViewProps> = ({
             </div>
           ))}
         </div>
-      </CardContent>
-    </Card>
+      </div>
+    </div>
   );
 };
 
