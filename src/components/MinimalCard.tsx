@@ -3,6 +3,7 @@ import { Habit } from "@/types";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
+import { isTitleEmpty } from "@/lib/utils";
 
 interface MinimalViewProps {
   habit: Habit;
@@ -58,7 +59,7 @@ const MinimalCard: React.FC<MinimalViewProps> = ({
             <p className="flex h-8 w-8 items-center justify-center text-lg">
               {habit.emoji}
             </p>
-            <p className="text-sm">{habit.name}</p>
+            <p className="text-sm">{isTitleEmpty(habit.name)}</p>
           </div>
           <Badge variant="secondary" className="text-xs">
             🔥 {habit.streak}

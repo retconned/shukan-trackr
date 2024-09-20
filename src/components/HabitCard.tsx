@@ -1,6 +1,10 @@
 import React from "react";
 import { Habit } from "@/types";
-import { calculateEndDate, calculateRemainingDays } from "@/lib/utils";
+import {
+  calculateEndDate,
+  calculateRemainingDays,
+  isTitleEmpty,
+} from "@/lib/utils";
 import { motion } from "framer-motion";
 import {
   Card,
@@ -42,7 +46,7 @@ const HabitCard: React.FC<HabitCardProps> = ({ habit, updateStreak }) => {
           <div className="flex h-10 w-10 items-center justify-center rounded-full bg-white/20">
             {habit.emoji}
           </div>
-          <h3 className="text-lg font-semibold">{habit.name}</h3>
+          <h3 className="text-lg font-semibold">{isTitleEmpty(habit.name)}</h3>
         </div>
         <Button
           onClick={updateStreak}
@@ -56,7 +60,10 @@ const HabitCard: React.FC<HabitCardProps> = ({ habit, updateStreak }) => {
       <CardContent>
         <div className="grid grid-cols-18 gap-0.5">
           {weeks.reverse().map((week, weekIndex) => (
-            <div key={weekIndex} className="flex flex-col-reverse gap-0.5">
+            <div
+              key={weekIndex}
+              className="flex flex-col-reverse gap-0.5 md:gap-2"
+            >
               {week.map((dayClass, dayIndex) => (
                 <div
                   key={dayIndex}

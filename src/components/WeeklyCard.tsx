@@ -55,7 +55,9 @@ const WeeklyHabitView: React.FC<WeeklyHabitViewProps> = ({
       <div className="flex flex-row items-center justify-between py-2">
         <div className="flex items-center space-x-2 px-2">
           <h3 className="text-base">{habit.emoji}</h3>
-          <h3 className="text-base">{isTitleEmpty(habit.name)}</h3>
+          <h3 className="text-base">
+            {isTitleEmpty(isTitleEmpty(habit.name))}
+          </h3>
           <Badge variant="default" className="text-xs">
             🔥 {habit.streak} days
           </Badge>
