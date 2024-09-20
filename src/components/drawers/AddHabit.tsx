@@ -1,4 +1,3 @@
-// HabitTracker.tsx
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import {
@@ -42,9 +41,6 @@ const AddHabitDrawer: React.FC<
       <DrawerTrigger asChild>
         {children || <Button variant="outline">Add habit</Button>}
       </DrawerTrigger>
-      {/* <DrawerTrigger asChild>
-        <Button variant="outline">Add habit</Button>
-      </DrawerTrigger> */}
       <DrawerContent className="h-[520px] max-h-[80vh]">
         <div className="mx-auto w-full max-w-sm justify-center pt-10">
           <DrawerHeader>

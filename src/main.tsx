@@ -1,7 +1,6 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import "./globals.css";
-// import HabitTracker from "./components/HabitTracker.tsx";
 import { ThemeProvider } from "@/components/theme-provider.tsx";
 import App from "@/App.tsx";
 

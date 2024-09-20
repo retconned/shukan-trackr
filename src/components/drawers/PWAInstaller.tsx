@@ -1,4 +1,3 @@
-// HabitTracker.tsx
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 
@@ -13,14 +12,12 @@ import {
   DrawerTrigger,
 } from "@/components/ui/drawer";
 
-// ThemeDrawer.tsx
 import { Download } from "lucide-react";
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 const PWAInstallDrawer: React.FC = () => {
   const [deferredPrompt, setDeferredPrompt] = useState<any>(null);
-
   useEffect(() => {
     const handleBeforeInstallPrompt = (e: Event) => {
       e.preventDefault();
