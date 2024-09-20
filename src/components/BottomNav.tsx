@@ -56,7 +56,7 @@ const BottomBar: React.FC<BottomBarProps> = ({
   >(null);
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 flex items-center justify-around border-t bg-background p-4">
+    <div className="fixed bottom-0 left-0 right-0 flex items-center justify-around border-t bg-background px-4 pb-7 pt-4">
       <SettingsDrawer startDay={startDay} setStartDay={setStartDay} />
       <div className="relative flex flex-1 justify-center">
         <AddHabitDrawer addHabit={addHabit}>
