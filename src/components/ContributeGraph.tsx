@@ -18,7 +18,7 @@ const ContributionGraph: React.FC<ContributionGraphProps> = ({ habit }) => {
   });
 
   return (
-    <div className="grid-cols-16 grid gap-1">
+    <div className="grid grid-cols-16 gap-1">
       {days.reverse().map((dayClass, index) => (
         <div
           key={index}

@@ -58,3 +58,8 @@ export const calculateRemainingDays = (habit: Habit) => {
 
   return remainingDays > 0 ? remainingDays : 0;
 };
+
+export const isTitleEmpty = (value: string | null | undefined) => {
+  if (!value || value.trim() === "") return "Untitled";
+  return value;
+};

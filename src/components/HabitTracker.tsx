@@ -86,7 +86,7 @@ const HabitTracker: React.FC = () => {
   };
 
   return (
-    <div className="mx-auto max-w-md p-4">
+    <div className="mx-auto max-w-md p-4 md:max-w-xl">
       <Header />
       <Tabs
         defaultValue={viewMode}
