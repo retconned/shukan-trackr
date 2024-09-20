@@ -45,7 +45,7 @@ const AddHabitDrawer: React.FC<
       {/* <DrawerTrigger asChild>
         <Button variant="outline">Add habit</Button>
       </DrawerTrigger> */}
-      <DrawerContent className="h-[60vh] max-h-[60vh] min-h-[60vh]">
+      <DrawerContent className="h-[520px] max-h-[80vh]">
         <div className="mx-auto w-full max-w-sm justify-center pt-10">
           <DrawerHeader>
             <DrawerTitle>Add New Habit</DrawerTitle>
