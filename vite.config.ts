@@ -19,6 +19,7 @@ export default defineConfig({
         short_name: "HabitTracker",
         description: "Track your habits and maintain streaks!",
         theme_color: "#191615",
+        display: "standalone",
         icons: [
           {
             src: "/icons/16.png",
@@ -46,7 +47,6 @@ export default defineConfig({
             type: "image/png",
           },
         ],
-        display: "standalone",
       },
     }),
   ],
